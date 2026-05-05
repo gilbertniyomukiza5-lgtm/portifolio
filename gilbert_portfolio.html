@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gilbert Niyomukiza — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #0f2044;
+    --navy-light: #162c5a;
+    --electric: #1e90ff;
+    --cyan: #00d4ff;
+    --teal: #00b4d8;
+    --gold: #f0b429;
+    --white: #f0f4ff;
+    --muted: rgba(240,244,255,0.55);
+    --card: rgba(255,255,255,0.05);
+    --border: rgba(30,144,255,0.18);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ─────────────────────────────── */
+  .bg-layer {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(30,144,255,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 80%, rgba(0,212,255,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 55% 45%, rgba(15,32,68,0.8) 0%, transparent 70%),
+      var(--navy);
+    pointer-events: none;
+  }
+
+  .apeki-bg {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: var(--apeki-img);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.04;
+    filter: grayscale(100%) blur(1px);
+    pointer-events: none;
+  }
+
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(30,144,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,144,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* ── LAYOUT ──────────────────────────────────── */
+  .page { position: relative; z-index: 1; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── NAV ─────────────────────────────────────── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    background: rgba(10,22,40,0.7);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .nav-logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--electric), var(--cyan));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; font-weight: 900; color: var(--navy);
+  }
+
+  .nav-name { font-weight: 600; font-size: 0.95rem; letter-spacing: 0.02em; }
+  .nav-tag { font-size: 0.7rem; color: var(--cyan); font-family: 'JetBrains Mono', monospace; }
+
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── HERO ─────────────────────────────────────── */
+  .hero {
+    min-height: 92vh;
+    display: flex; align-items: center;
+    padding: 5rem 0;
+    position: relative;
+  }
+
+  .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; width: 100%; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(30,144,255,0.12); border: 1px solid var(--border);
+    border-radius: 100px; padding: 0.35rem 1rem;
+    font-size: 0.72rem; font-family: 'JetBrains Mono', monospace;
+    color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-title .accent { color: var(--electric); font-style: italic; }
+
+  .hero-subtitle {
+    font-size: 1.05rem; color: var(--muted); line-height: 1.7;
+    margin-bottom: 2rem; max-width: 480px;
+  }
+
+  .hero-meta { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+
+  .meta-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.85rem; color: var(--muted);
+  }
+
+  .meta-icon { font-size: 1rem; }
+
+  .meta-item a {
+    color: var(--cyan); text-decoration: none;
+  }
+
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--electric), var(--cyan));
+    color: var(--navy); font-weight: 700; font-size: 0.85rem;
+    padding: 0.75rem 1.8rem; border-radius: 8px;
+    border: none; cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(30,144,255,0.4); }
+
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border); font-weight: 500; font-size: 0.85rem;
+    padding: 0.75rem 1.8rem; border-radius: 8px;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ── APEKI CARD ──────────────────────────────── */
+  .apeki-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    position: relative; overflow: hidden;
+  }
+
+  .apeki-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(30,144,255,0.08), transparent);
+    pointer-events: none;
+  }
+
+  .apeki-card-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+  }
+
+  .apeki-logo-circle {
+    width: 64px; height: 64px; border-radius: 14px;
+    background: linear-gradient(135deg, #1565c0, #00b4d8);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem; color: white; font-weight: 900;
+    position: relative; overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .apeki-school-name { font-weight: 700; font-size: 1rem; }
+  .apeki-school-motto { font-size: 0.72rem; color: var(--cyan); font-family: 'JetBrains Mono', monospace; }
+
+  .apeki-dates {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    background: rgba(30,144,255,0.06); border-radius: 12px; padding: 1rem;
+    border: 1px solid rgba(30,144,255,0.15);
+  }
+
+  .date-block { text-align: center; }
+  .date-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+  .date-value { font-size: 1.1rem; font-weight: 700; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+
+  .progress-bar { margin-top: 1.5rem; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .progress-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--electric), var(--cyan)); border-radius: 100px; transition: width 1s ease; }
+
+  .skills-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .skill-tag {
+    background: rgba(30,144,255,0.1); border: 1px solid rgba(30,144,255,0.25);
+    border-radius: 6px; padding: 0.3rem 0.7rem;
+    font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: var(--cyan);
+  }
+
+  /* ── SECTIONS ─────────────────────────────────── */
+  section { padding: 5rem 0; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--cyan);
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.2; margin-bottom: 1rem;
+  }
+
+  .section-desc { color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.7; }
+
+  /* ── ABOUT ────────────────────────────────────── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; align-items: start; }
+
+  .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+
+  .stat-box {
+    text-align: center; padding: 1.5rem;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--electric); font-family: 'DM Serif Display', serif; }
+  .stat-lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.2rem; }
+
+  .map-embed {
+    width: 100%; height: 260px;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .map-link-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: linear-gradient(135deg, rgba(30,144,255,0.15), rgba(0,212,255,0.1));
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 0.75rem 1.2rem; margin-top: 1rem;
+    color: var(--cyan); text-decoration: none; font-size: 0.82rem; font-weight: 600;
+    transition: transform 0.2s; width: 100%; justify-content: center;
+  }
+
+  .map-link-btn:hover { transform: translateY(-2px); }
+
+  /* ── PROJECTS ─────────────────────────────────── */
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.8rem;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+
+  .project-card:hover { transform: translateY(-4px); border-color: rgba(30,144,255,0.4); }
+
+  .project-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, rgba(30,144,255,0.2), rgba(0,212,255,0.1));
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1rem;
+    border: 1px solid rgba(30,144,255,0.2);
+  }
+
+  .project-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .project-desc { color: var(--muted); font-size: 0.82rem; line-height: 1.6; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .tech-chip { background: rgba(30,144,255,0.08); border: 1px solid rgba(30,144,255,0.2); border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.65rem; font-family: 'JetBrains Mono', monospace; color: var(--muted); }
+
+  /* ── AI CHAT ──────────────────────────────────── */
+  .chat-section { background: rgba(15,32,68,0.5); border-radius: 24px; padding: 3rem; border: 1px solid var(--border); }
+
+  .chat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+
+  .chat-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--electric), var(--cyan));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--navy);
+    font-weight: 900; flex-shrink: 0; position: relative;
+  }
+
+  .chat-status {
+    position: absolute; bottom: 2px; right: 2px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #22c55e; border: 2px solid var(--navy-mid);
+  }
+
+  .chat-name { font-weight: 700; font-size: 1rem; }
+  .chat-label { font-size: 0.72rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  .chat-messages {
+    height: 320px; overflow-y: auto;
+    background: rgba(10,22,40,0.6); border-radius: 16px;
+    padding: 1.2rem; margin-bottom: 1rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    border: 1px solid rgba(30,144,255,0.1);
+  }
+
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: rgba(30,144,255,0.3); border-radius: 2px; }
+
+  .msg { display: flex; gap: 0.6rem; max-width: 85%; }
+  .msg.user { flex-direction: row-reverse; align-self: flex-end; }
+
+  .msg-bubble {
+    padding: 0.65rem 1rem;
+    border-radius: 14px; font-size: 0.85rem; line-height: 1.6;
+  }
+
+  .msg.gilbert .msg-bubble {
+    background: rgba(30,144,255,0.12); border: 1px solid rgba(30,144,255,0.2);
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg.user .msg-bubble {
+    background: linear-gradient(135deg, rgba(30,144,255,0.25), rgba(0,212,255,0.15));
+    border: 1px solid rgba(30,144,255,0.3);
+    border-bottom-right-radius: 4px;
+  }
+
+  .msg-av {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--electric), var(--cyan));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; color: var(--navy);
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .msg.user .msg-av { background: rgba(255,255,255,0.12); color: var(--white); }
+
+  .typing { display: flex; align-items: center; gap: 4px; padding: 0.5rem 0; }
+  .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: bounce 1.2s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+  .chat-input-row { display: flex; gap: 0.8rem; }
+
+  #chat-input {
+    flex: 1; background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.75rem 1rem;
+    color: var(--white); font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem;
+    outline: none; transition: border-color 0.2s;
+  }
+
+  #chat-input:focus { border-color: var(--electric); }
+  #chat-input::placeholder { color: var(--muted); }
+
+  #chat-send {
+    background: linear-gradient(135deg, var(--electric), var(--cyan));
+    border: none; border-radius: 10px; padding: 0.75rem 1.2rem;
+    color: var(--navy); font-weight: 700; cursor: pointer;
+    font-size: 1rem; transition: transform 0.2s;
+  }
+
+  #chat-send:hover { transform: translateY(-2px); }
+
+  .quick-questions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+
+  .quick-btn {
+    background: rgba(30,144,255,0.08); border: 1px solid rgba(30,144,255,0.2);
+    border-radius: 100px; padding: 0.35rem 0.9rem;
+    font-size: 0.72rem; font-family: 'Space Grotesk', sans-serif; color: var(--muted);
+    cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .quick-btn:hover { background: rgba(30,144,255,0.2); color: var(--cyan); border-color: rgba(30,144,255,0.4); }
+
+  /* ── CONTACT ──────────────────────────────────── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; }
+
+  .contact-card {
+    display: flex; align-items: center; gap: 1.2rem;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.2rem 1.5rem;
+    text-decoration: none; color: var(--white);
+    transition: transform 0.2s, border-color 0.2s;
+    margin-bottom: 1rem;
+  }
+
+  .contact-card:hover { transform: translateX(4px); border-color: rgba(30,144,255,0.4); }
+
+  .contact-icon { font-size: 1.5rem; }
+  .contact-info { display: flex; flex-direction: column; }
+  .contact-type { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .contact-value { font-size: 0.9rem; font-weight: 600; color: var(--cyan); }
+
+  /* ── FOOTER ───────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  footer span { color: var(--cyan); }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero-content { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr 1fr 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── HIGHLIGHT ANIMATION ─────────────────────── */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg { animation: slideIn 0.3s ease; }
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="apeki-bg" id="apekiBg"></div>
+<div class="grid-overlay"></div>
+
+<div class="page">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">GN</div>
+    <div>
+      <div class="nav-name">Gilbert Niyomukiza</div>
+      <div class="nav-tag">// Software Developer</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#chat">AI Chat</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+
+      <div>
+        <div class="hero-badge">
+          <div class="badge-dot"></div>
+          Available for opportunities
+        </div>
+
+        <h1 class="hero-title">
+          Gilbert<br>
+          <span class="accent">Niyomukiza</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Software Development student at APEKI Tumba TVET, Rwanda. Passionate about building innovative digital solutions that make a difference. <em>Learn. Grow. Succeed.</em>
+        </p>
+
+        <div class="hero-meta">
+          <div class="meta-item">
+            <span class="meta-icon">📍</span>
+            <span>Musanze District, Muhoza Sector — <strong>Rwanda</strong></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🎓</span>
+            <span>APEKI Tumba TVET — Software Development</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🗓</span>
+            <span>Internship: <strong>Apr 20 – May 5, 2026</strong></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🗺</span>
+            <a href="https://www.google.com/maps/search/Musanze+District+Muhoza+Sector+Rwanda" target="_blank">View Location on Google Maps →</a>
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+          <a class="btn-primary" href="#chat">💬 Chat with Gilbert's AI</a>
+          <a class="btn-ghost" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+
+      <!-- APEKI CARD -->
+      <div class="apeki-card">
+        <div class="apeki-card-header">
+          <div class="apeki-logo-circle">A</div>
+          <div>
+            <div class="apeki-school-name">APEKI Tumba TVET</div>
+            <div class="apeki-school-motto">// Empowering Youth, Building Futures</div>
+          </div>
+        </div>
+
+        <div class="apeki-dates">
+          <div class="date-block">
+            <div class="date-label">📅 Internship Start</div>
+            <div class="date-value">20/4/2026</div>
+          </div>
+          <div class="date-block">
+            <div class="date-label">📅 End Up</div>
+            <div class="date-value">5/5/2026</div>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-label">
+            <span>Internship Progress</span>
+            <span id="progressPct">Calculating…</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="skills-row">
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">UI/UX</span>
+        </div>
+
+        <div style="margin-top:1.2rem; padding:0.75rem; background:rgba(240,180,41,0.08); border:1px solid rgba(240,180,41,0.2); border-radius:10px; text-align:center;">
+          <div style="font-size:0.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;margin-bottom:0.15rem;">Motto</div>
+          <div style="font-style:italic;font-family:'DM Serif Display',serif;font-size:1rem;color:var(--gold);">Learn. Grow. Succeed.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">// 01 &mdash; About</div>
+    <h2 class="section-title">Who is Gilbert?</h2>
+    <p class="section-desc">A driven young developer from Rwanda combining technical education with real-world ambition.</p>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Gilbert Niyomukiza is a dedicated Software Development student at APEKI Tumba TVET, located in Rwanda. He is currently completing an internship that runs from April 20 to May 5, 2026, gaining hands-on experience in the tech industry.</p>
+        <p>Based in the scenic Musanze District in the Northern Province of Rwanda, Gilbert combines his studies with a passion for building impactful software. He believes in the power of technology to transform communities and drive economic growth across Africa.</p>
+        <p>His combination focuses on full-stack development — from designing intuitive user interfaces to architecting robust backend systems. Gilbert is motivated by APEKI's motto: <em>"Learn. Grow. Succeed."</em></p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num">2026</div>
+            <div class="stat-lbl">Internship Year</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">8+</div>
+            <div class="stat-lbl">Tech Skills</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">100%</div>
+            <div class="stat-lbl">Dedicated</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.2!2d29.6033!3d-1.4994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dc56a5a1f93005%3A0x81f10e7c73c9f3a!2sMuhoza%2C%20Musanze!5e0!3m2!1sen!2srw!4v1714000000000!5m2!1sen!2srw"
+            width="100%" height="260" style="border:0; border-radius:16px;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <a class="map-link-btn"
+           href="https://www.google.com/maps/search/Musanze+District+Muhoza+Sector+Rwanda"
+           target="_blank">
+          🗺 Open Full Map — Musanze District, Rwanda
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">// 02 &mdash; Projects</div>
+    <h2 class="section-title">What I Build</h2>
+    <p class="section-desc">Projects developed during training at APEKI Tumba TVET, showcasing full-stack capabilities.</p>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon">🛒</div>
+        <div class="project-title">E-Commerce Platform</div>
+        <div class="project-desc">A full-featured online store with product management, cart functionality, and payment integration for local Rwandan businesses.</div>
+        <div class="project-tech">
+          <span class="tech-chip">PHP</span>
+          <span class="tech-chip">MySQL</span>
+          <span class="tech-chip">JavaScript</span>
+          <span class="tech-chip">Bootstrap</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">📊</div>
+        <div class="project-title">Student Management System</div>
+        <div class="project-desc">A web-based system for managing student records, attendance, grades, and teacher communication for TVET schools.</div>
+        <div class="project-tech">
+          <span class="tech-chip">React</span>
+          <span class="tech-chip">Node.js</span>
+          <span class="tech-chip">MongoDB</span>
+          <span class="tech-chip">REST API</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🌿</div>
+        <div class="project-title">AgriConnect Rwanda</div>
+        <div class="project-desc">Mobile-first platform connecting farmers in Musanze to markets, weather data, and agricultural advisory services.</div>
+        <div class="project-tech">
+          <span class="tech-chip">Python</span>
+          <span class="tech-chip">Flask</span>
+          <span class="tech-chip">SQLite</span>
+          <span class="tech-chip">CSS3</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">💬</div>
+        <div class="project-title">Community Forum App</div>
+        <div class="project-desc">A multilingual community discussion platform supporting Kinyarwanda, French, and English for local digital inclusion.</div>
+        <div class="project-tech">
+          <span class="tech-chip">JavaScript</span>
+          <span class="tech-chip">Firebase</span>
+          <span class="tech-chip">HTML5</span>
+          <span class="tech-chip">i18n</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🏥</div>
+        <div class="project-title">Health Tracker App</div>
+        <div class="project-desc">Personal health monitoring application with BMI calculator, nutrition log, and appointment scheduling for community health workers.</div>
+        <div class="project-tech">
+          <span class="tech-chip">React</span>
+          <span class="tech-chip">Chart.js</span>
+          <span class="tech-chip">PHP</span>
+          <span class="tech-chip">MySQL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">📱</div>
+        <div class="project-title">Portfolio Builder Tool</div>
+        <div class="project-desc">A drag-and-drop tool for TVET graduates to create professional portfolios without coding knowledge, deployed as a PWA.</div>
+        <div class="project-tech">
+          <span class="tech-chip">Vue.js</span>
+          <span class="tech-chip">PWA</span>
+          <span class="tech-chip">LocalStorage</span>
+          <span class="tech-chip">CSS Grid</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI CHAT -->
+<section id="chat">
+  <div class="container">
+    <div class="section-label">// 03 &mdash; AI Assistant</div>
+    <h2 class="section-title">Chat with Gilbert's AI</h2>
+    <p class="section-desc">Ask anything about Gilbert — his background, skills, projects, or future goals. Powered by Claude AI.</p>
+
+    <div style="margin-top:2.5rem;">
+      <div class="chat-section">
+        <div class="chat-header">
+          <div class="chat-avatar">
+            GN
+            <div class="chat-status"></div>
+          </div>
+          <div>
+            <div class="chat-name">Gilbert's AI Representative</div>
+            <div class="chat-label">//  APEKI Tumba TVET</div>
+          </div>
+        </div>
+
+        <div class="quick-questions">
+          <button class="quick-btn" onclick="askQuick('Tell me about Gilbert')">👋 About Gilbert</button>
+          <button class="quick-btn" onclick="askQuick('What are his technical skills?')">💻 Skills</button>
+          <button class="quick-btn" onclick="askQuick('What is APEKI Tumba TVET?')">🎓 His School</button>
+          <button class="quick-btn" onclick="askQuick('What are his career goals?')">🚀 Goals</button>
+          <button class="quick-btn" onclick="askQuick('What projects has he built?')">🛠 Projects</button>
+          <button class="quick-btn" onclick="askQuick('Where is Musanze District?')">📍 Location</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg gilbert">
+            <div class="msg-av">G</div>
+            <div class="msg-bubble">
+              Muraho! I'm Gilbert Niyomukiza's AI representative. I'm a software development student at APEKI Tumba TVET in Rwanda 🇷🇼. Ask me anything about my background, skills, projects, or aspirations. I'm happy to chat!
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-row">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Ask anything about Gilbert…"
+            onkeydown="if(event.key==='Enter')sendMessage()"
+          />
+          <button id="chat-send" onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">// 04 &mdash; Contact</div>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="section-desc">Interested in collaborating or learning more? Reach out through any of the channels below.</p>
+
+    <div class="contact-grid" style="margin-top:2.5rem;">
+      <div>
+        <a class="contact-card" href="mailto:gilbert.niyomukiza@apeki.rw">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-info">
+            <div class="contact-type">Email</div>
+            <div class="contact-value">gilbert.niyomukiza@apeki.rw</div>
+          </div>
+        </a>
+        <a class="contact-card"
+           href="https://www.google.com/maps/search/Musanze+District+Muhoza+Sector+Rwanda"
+           target="_blank">
+          <div class="contact-icon">🗺</div>
+          <div class="contact-info">
+            <div class="contact-type">Location</div>
+            <div class="contact-value">Musanze District, Muhoza Sector — Rwanda</div>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a class="contact-card" href="tel:+250700000000">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info">
+            <div class="contact-type">Phone</div>
+            <div class="contact-value">+250 700 000 000</div>
+          </div>
+        </a>
+        <a class="contact-card" href="https://github.com" target="_blank">
+          <div class="contact-icon">💻</div>
+          <div class="contact-info">
+            <div class="contact-type">GitHub</div>
+            <div class="contact-value">github.com/gilbert-niyomukiza</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Gilbert Niyomukiza</span> · APEKI Tumba TVET · Musanze, Rwanda ·
+  <span>Software Development</span> · Internship 2026 ·
+  <em style="color:var(--gold)">Learn. Grow. Succeed.</em>
+</footer>
+
+</div><!-- .page -->
+
+<script>
+// ── INJECT APEKI BG ──────────────────────────────
+(function() {
+  const img = new Image();
+  img.onload = function() {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width; canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    document.getElementById('apekiBg').style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
+  };
+  img.src = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BS';
+})();
+
+// ── INTERNSHIP PROGRESS ────────────────────────────
+(function() {
+  const start = new Date('2026-04-20');
+  const end   = new Date('2026-05-05');
+  const now   = new Date();
+  const total = end - start;
+  const elapsed = Math.min(Math.max(now - start, 0), total);
+  const pct = Math.round((elapsed / total) * 100);
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+})();
+
+// ── AI CHAT ────────────────────────────────────────
+const GILBERT_SYSTEM = `You are an AI representative speaking ON BEHALF of Gilbert Niyomukiza, a Software Development student from Rwanda. Respond in first person AS Gilbert. Here is Gilbert's profile:
+
+Name: Gilbert Niyomukiza
+Location: Rwanda, Musanze District, Muhoza Sector
+School: APEKI Tumba TVET (Empowering Youth, Building Futures)
+Combination: Software Development
+Internship: April 20 – May 5, 2026
+School motto: Learn. Grow. Succeed.
+
+Skills: HTML, CSS, JavaScript, PHP, Python, MySQL, React, Git, UI/UX design
+Languages: Kinyarwanda (native), French, English
+Interests: full-stack development, mobile apps, community tech solutions in Rwanda
+Career goal: To become a skilled software engineer contributing to Rwanda's digital transformation
+
+Speak warmly, enthusiastically, and professionally. Use occasional Kinyarwanda greetings like "Muraho" (hello) or "Murakoze" (thank you). Keep answers concise and friendly. Always relate your answers to your Rwandan context and your studies at APEKI Tumba TVET.`;
+
+const messagesEl = document.getElementById('chatMessages');
+let conversationHistory = [];
+
+function addMessage(role, text) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + (role === 'gilbert' ? 'gilbert' : 'user');
+  div.innerHTML = `
+    <div class="msg-av">${role === 'gilbert' ? 'G' : 'You'}</div>
+    <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
+  `;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg gilbert'; div.id = 'typing-indicator';
+  div.innerHTML = `
+    <div class="msg-av">G</div>
+    <div class="msg-bubble"><div class="typing">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div></div>
+  `;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+async function sendMessage(overrideText) {
+  const input = document.getElementById('chat-input');
+  const text = overrideText || input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  addMessage('user', text);
+  conversationHistory.push({ role: 'user', content: text });
+  showTyping();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        system: GILBERT_SYSTEM,
+        messages: conversationHistory
+      })
+    });
+
+    const data = await res.json();
+    const reply = data.content?.map(b => b.text || '').join('') || "Sorry, I couldn't respond right now. Please try again!";
+    removeTyping();
+    conversationHistory.push({ role: 'assistant', content: reply });
+    addMessage('gilbert', reply);
+  } catch (e) {
+    removeTyping();
+    addMessage('gilbert', "Murakoze for your question! I'm having a small technical issue right now. Please try again in a moment. 🙏");
+  }
+}
+
+function askQuick(q) {
+  sendMessage(q);
+}
+
+// ── INTERSECTION OBSERVER (simple fade) ───────────
+document.querySelectorAll('section').forEach(s => {
+  s.style.opacity = '0';
+  s.style.transform = 'translateY(20px)';
+  s.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
